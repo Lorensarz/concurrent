@@ -5,13 +5,10 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        // Создаем блокирующую очередь с фиксированным размером 5
         BlockingQueue<Integer> queue = new BlockingQueue<>(5);
 
-        // Создаем пул потоков с двумя потоками
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        // Производитель добавляет элементы в очередь
         executor.submit(() -> {
             try {
                 for (int i = 1; i <= 10; i++) {
@@ -24,7 +21,6 @@ public class Main {
             }
         });
 
-        // Потребитель извлекает элементы из очереди
         executor.submit(() -> {
             try {
                 for (int i = 1; i <= 10; i++) {
@@ -37,7 +33,6 @@ public class Main {
             }
         });
 
-        // Завершаем работу пула потоков после завершения задач
         executor.shutdown();
     }
 }

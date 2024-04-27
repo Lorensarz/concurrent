@@ -14,23 +14,17 @@ public class BlockingQueue<T> {
 
     public synchronized void enqueue(T item) throws InterruptedException {
         while (queue.size() == capacity) {
-            // Если очередь заполнена, поток ожидает освобождения места
             wait();
         }
-        // Добавляем элемент в очередь
         queue.offer(item);
-        // Уведомляем другие потоки о появлении нового элемента
         notifyAll();
     }
 
     public synchronized T dequeue() throws InterruptedException {
         while (queue.isEmpty()) {
-            // Если очередь пуста, поток ожидает появления элементов
             wait();
         }
-        // Извлекаем и удаляем элемент из очереди
         T item = queue.poll();
-        // Уведомляем другие потоки о возможности добавления новых элементов
         notifyAll();
         return item;
     }

@@ -21,12 +21,17 @@ public class ConcurrentBank {
     }
 
     public void transfer(BankAccount fromAccount, BankAccount toAccount, int amount) {
+        lock.lock();
+        try {
             if (fromAccount.getBalance() >= amount) {
                 fromAccount.withdraw(amount);
                 toAccount.deposit(amount);
             } else {
                 System.out.println("Недостаточно средств для перевода");
             }
+        } finally {
+            lock.unlock();
+        }
     }
 
     public int getTotalBalance() {

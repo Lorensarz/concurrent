@@ -21,7 +21,7 @@ public class ComplexTaskExecutor {
                 ComplexTask task = new ComplexTask(taskId);
                 task.execute();
                 try {
-                    barrier.await(); // Поток ждет, пока все задачи не завершатся
+                    barrier.await();
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                 }
